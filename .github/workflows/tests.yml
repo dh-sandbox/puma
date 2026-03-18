@@ -136,6 +136,17 @@ jobs:
         run: test/runner --verbose
         env:
           MT_CPU: 2
+          COVERAGE: ${{ (matrix.os == 'ubuntu-22.04' && matrix.ruby == '3.4' && matrix.no-ssl == '' && matrix.rack-v == '' && matrix.yjit == '') && 'true' || '' }}
+
+      - name: Upload coverage to Qlty
+        if: |
+          needs.skip_duplicate_runs.outputs.should_skip != 'true' &&
+          matrix.os == 'ubuntu-22.04' && matrix.ruby == '3.4' &&
+          matrix.no-ssl == '' && matrix.rack-v == '' && matrix.yjit == ''
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: coverage/.resultset.json
 
   test_non_mri:
     name: >-
