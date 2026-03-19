@@ -2,6 +2,14 @@
 # Copyright (c) 2011 Evan Phoenix
 # Copyright (c) 2005 Zed A. Shaw
 
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter '/test/'
+    add_filter '/ext/'
+  end
+end
+
 # WIth GitHub Actions, OS's `/tmp` folder may be on a HDD, while
 # ENV['RUNNER_TEMP'] is an SSD.  Faster.
 if ENV['GITHUB_ACTIONS'] == 'true'

@@ -6,6 +6,7 @@ gem "rake-compiler"
 
 gem "json", "~> 2.18"
 gem "nio4r", "~> 2.7"
+gem "simplecov", require: false
 gem "minitest", ">= 5.26"
 gem "minitest-retry"
 gem "minitest-proveit"
